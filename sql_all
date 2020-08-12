@@ -1,0 +1,710 @@
+
+
+  SQL ALL CONCEPTS :
+
+   SQL : 1. ALL ATER COMMANDS
+
+ALTER Table Student Add(
+father_name VARCHAR2(60),
+mother_name VARCHAR2(60)
+);
+
+2.ALTER Table Student Modify(
+address VARCHAR2(300) );
+
+3.ALTER Table Student Add(
+dob DATE default 22-02-1997);
+
+4.ALTER TABLE student
+RENAME Column address TO location;
+
+5.ALTER TABLE student DROP (
+location);
+
+
+DML COMMANDS
+
+CREATE TABLE Student (
+student_id int ,
+name VARCHAR2(100),
+age int );
+
+1. INSERT into Student1 VALUES(102,'Ari',18);
+       OR
+   INSERT into Student1(Student_id,name) VALUES(106,'Dora');
+
+2. INSERT WITH DEFAULT
+    
+   INSERT into Student1 VALUES(112,'Vin',DEFAULT);
+
+3. INSERT WITH NULL VALUE
+
+   INSERT into Student1(Student_id,name) VALUES(107,'Paul');
+
+     or
+
+   INSERT into Student1(Student_id,name,age) VALUES(107,'Paul',NULL);
+    /* INSERT MULTIPLR TUPLES AT ONCE */
+      INSERT ALL
+     INTO SCHOOL(School_id,name,location) Values (1,'a','kolkata')
+     INTO SCHOOL(School_id,name,location) Values (2,'b','delhi')
+       SELECT * FROM DUAL ;
+
+4. UPDATE
+  
+    UPDATE Student1 SET age = 27 where Student_id = 103 ;
+    UPDATE Student1 SET name = 'Jess' , age = 27 where Student_id = 104 ;
+
+5. DELETE
+  
+     DELETE From Student1 where Student_id = 106;
+
+
+  DDL COMMANDS
+
+   CREATE Table School(
+     School_id int ,
+   name VARCHAR2(60),
+   location VARCHAR2(60));
+      
+1. TRUNCATE AND DROP
+
+  TRUNCATE Table School1;
+     DROP Table School1; 
+
+CREATE Table Class (
+id INT,
+name VARCHAR2(60)
+);
+
+ALTER , MODIFY AND RENAMME given above.
+
+
+DCL COMMANDS
+
+GRANT CREATE Table To Username;
+
+GRANT CREATE SESSION To Username ;
+
+GRANT DROP Table To Username ;
+
+GRANT sysdba to username ;
+
+GRANT DROP ANY Table To Username;
+
+REVOKE CREATE Table from Username;
+
+
+  CREATE Table Student2 (
+Student_id INT ,
+name VARCHAR2(60) ,
+age INT ,
+address VARCHAR2(60));
+
+
+ALL TYPES OF SELECT
+
+SELECT Student_id,name,age,address from Student2 WHERE Student_id = 4
+SELECT * FROM Student2 WHERE name = 'Lee'
+SELECT Student_id,name,age FROM Student2 WHERE name = 'Lee'
+
+WHERE CONDITIONS TYPES  :
+
+1. LIKE
+
+   SELECT * FROM Student2 WHERE name LIKE 'A%' ;
+SELECT * FROM Student2 WHERE name LIKE '%e' ;
+SELECT * FROM Student2 WHERE name LIKE '_h%' ;
+SELECT * FROM Student2 WHERE name LIKE 'A__%' ;
+SELECT * FROM Student2 WHERE name LIKE 'C___%' ;
+
+/*LIKE COMPARES DATA WITHIN AN EXPRESSION USING WILDCARD OPERATORS
+%  - MEANS 0,1 OR MORE CHARACTERS
+_  MEANS 1 CHARACTER
+  TO FIND THE MATCHING PATTERN IN THEM.*/
+
+Select all records where the first letter of the City is an "a" or a "c" or an "s".
+SELECT * FROM Customers
+WHERE City LIKE '
+[acs]
+%';
+
+Select all records where the first letter of the City starts with anything from an "a" to an "f".
+
+SELECT * FROM Customers
+WHERE City LIKE '
+[a-f]
+%';
+
+
+Select all records where the first letter of the City is NOT an "a" or a "c" or an "f".
+
+SELECT * FROM Customers
+WHERE City LIKE '
+[^acf]
+%';
+
+
+2. BETWEEN AND IN
+
+    SELECT ENAME FROM EMPLOYEE WHERE DOB BETWEEN '12/07/92 TO 30/02/18'
+
+  Use the IN operator to select all the records where Country is either "Norway" or "France".
+
+SELECT * FROM Customers where country in('norway' , 'France' );
+
+OTHERS :
+
+The following SQL statement selects all customers from the "Customers" table, sorted by the "Country" and the "CustomerName" column.
+This means that it orders by Country, but if some rows have the same Country, it orders them by CustomerName:
+
+SELECT * FROM Customers
+ORDER BY Country, CustomerName;
+
+SELECT * TOP 3 FROM CUSTOMERS;
+SELECT *  FROM CUSTOMERS LIMIT 3 ;
+SELECT * FROM CUSTOMERS WHERE ROWNUM <= 3 ;
+
+SELECT ENAME FROM EMPLOYEE WHERE NOT CITY = 'Berlin'
+
+
+CREATE Table Employee (
+eid INT ,
+name VARCHAR2(40),
+age INT,
+salary INT ) ;
+
+
+ORDER BY :
+
+SELECT * FROM Employee ORDER BY Salary;
+SELECT * FROM Employee ORDER BY Salary DESC;
+
+ORDER BY IS USED TO SORT THE DATA FETCHED FROM SELECT STATEMENT AND SORT IT IN ASCENDING OR DESCENDING ORDER BY
+DEFAULT IT IS ASCENDING ORDER
+
+GROUP BY :
+
+SELECT * FROM Employee GROUP BY salary
+SELECT name,age FROM Employee GROUP BY salary
+SELECT name, SUM(Salary) FROM Employee GROUP BY salary
+SELECT name,salary FROM Employee GROUP BY age > 25 ;
+SELECT name,age FROM Employee GROUP BY age ORDER BY salary desc
+
+/*GROUP BY IS TO GROUP THE RESULTS FETCHED BY SELECT STATEMENT BASED ON ONE OR MORE COLUMN
+
+but in oracle SQL select column must be same as group by COLUMN.
+*/
+
+DISTINCT :
+SELECT DISTINCT SALARY FROM EMPLOYEE1
+
+AND OR :
+SELECT * FROM Employee1 WHERE salary > 8000 AND age > 30
+SELECT * FROM Employee1 WHERE salary > 8000 OR age > 30
+
+CREATE Table Sale (
+oid int ,
+order_name VARCHAR2(30),
+previous_balance INT,
+customer_name VARCHAR2(50)) ;
+
+CREATE Table Student3(
+student_id INT NOT NULL,
+name VARCHAR2(40),
+age INT  );
+
+
+TCL COMMANDS
+1. COMMIT,SAVEPOINT AND ROLLBACK
+
+INSERT INTO class VALUES(5, 'Rahul');
+
+COMMIT;
+
+UPDATE class SET name = 'Abhijit' WHERE id = '5';
+
+SAVEPOINT A;
+
+INSERT INTO class VALUES(6, 'Chris');
+
+SAVEPOINT B;
+
+INSERT INTO class VALUES(7, 'Bravo');
+
+SAVEPOINT C;
+
+SELECT * FROM class;
+
+
+ROLLBACK TO B;
+
+SELECT * FROM class;
+
+
+ROLLBACK TO A;
+
+SELECT * FROM class;
+
+
+SQL CONSTRAINTS
+
+/* NOT NULL, UNIQUE , PRIMARY KEY , CHECK AND DEFAULT CONSTRAINT  */
+
+CREATE Table Student3 (
+Student_id INT NOT NULL ,
+name VARCHAR2(40) ,
+age INT ) ;
+
+CREATE Table Student3 (
+Student_id INT NOT NULL UNIQUE ,
+name VARCHAR2(40) ,
+age INT ) ;
+
+ALTER Table Student3 ADD UNIQUE(Student_id) ;
+
+CREATE Table Student3 (
+Student_id INT PRIMARY KEY ,
+name VARCHAR2(40) ,
+age INT ) ;
+
+ALTER Table Student3 ADD PRIMARY KEY (Student_id) ;
+
+CREATE Table Student3 (
+Student_id INT NOT NULL CHECK (Student_id > 0) ,
+name VARCHAR2(40) NOT NULL  ,
+age INT ) ;
+
+ALTER Table Student3 ADD CHECK(Student_id>0) ;
+
+CREATE Table Student3 (
+Student_id INT NOT NULL CHECK (Student_id > 0) ,
+name VARCHAR2(40) NOT NULL  ,
+age INT ,
+location VARCHAR2(20) DEFAULT 'India' ) ;
+
+
+ALTER Table Student3 ADD (
+location VARCHAR2(40) DEFAULT 'India' ) ;
+
+
+FOREIGN KEY CONCEPT
+
+
+CREATE Table Customer_detail (
+cid INT PRIMARY KEY ,
+customer_name VARCHAR2(40) NOT NULL ,
+address VARCHAR2(40) ) ;
+
+
+CREATE Table Order_detail (
+oid INT PRIMARY KEY ,
+order_name VARCHAR2(40) ,
+cid INT ,
+FOREIGN KEY(cid) REFERENCES Customer_detail(cid)
+);
+
+CREATE Table Customer_detail (
+CREATE Table Customer_detail (
+cid INT PRIMARY KEY ,
+customer_name VARCHAR2(40) NOT NULL ,
+address VARCHAR2(40) ) ;
+
+
+CREATE Table Order_detail (
+oid INT PRIMARY KEY ,
+order_name VARCHAR2(40) ,
+cid INT ,
+FOREIGN KEY(cid) REFERENCES Customer_detail(cid)
+);
+
+
+cid INT PRIMARY KEY ,
+customer_name VARCHAR2(40) NOT NULL ,
+address VARCHAR2(40) ) ;
+
+or
+
+ALTER Table Order_detail ADD FOREIGN KEY(cid) REFERENCES Customer_detail(cid) ;
+
+
+SQL Functions :
+
+/*Aggregate functions: it operates on values of one or more column and returns a single value. */
+
+SELECT AVG(Salary) FROM Employee
+SELECT COUNT(name) FROM Employee
+SELECT COUNT (DISTINCT(Salary)) FROM Employee
+SELECT MAX(Salary) FROM Employee
+SELECT MIN(Salary) FROM Employee
+SELECT SUM(Salary) FROM Employee
+SELECT SUM(DISTINCT(Salary)) FROM Employee
+SELECT FIRST(Salary) FROM Employee
+SELECT LAST(Salary) FROM Employee
+
+/*Aggregate functions: it depens upon user input and also returns a single value. */
+
+SELECT UPPER/UCASE in mysql(name) FROM Employee
+SELECT LOWER/LCASE in mysql(name) FROM Employee
+SELECT INITCAP(name) FROM Employee
+SELECT ROUND(Salary) FROM Employee
+SELECT ROUND(AVG(Salary),2) FROM Employee
+SELECT MID(name,3,1) FROM Employee;
+SELECT SUBSTR(name,2,3) FROM Employee;
+SELECT FORMAT(250500.5634, 2);
+/*Format the number as "#,###,###.##" (and round with two decimal places):*/
+
+
+CREATE Table Class_info (
+id int ,
+address VARCHAR2(40) );
+
+
+WHERE CONDITIONS TYPES  :
+
+1. LIKE
+
+   SELECT * FROM Student2 WHERE name LIKE 'A%' ;
+SELECT * FROM Student2 WHERE name LIKE '%e' ;
+SELECT * FROM Student2 WHERE name LIKE '_h%' ;
+SELECT * FROM Student2 WHERE name LIKE 'A__%' ;
+SELECT * FROM Student2 WHERE name LIKE 'C___%' ;
+
+/*LIKE COMPARES DATA WITHIN AN EXPRESSION USING WILDCARD OPERATORS
+%  - MEANS 0,1 OR MORE CHARACTERS
+_  MEANS 1 CHARACTER
+  TO FIND THE MATCHING PATTERN IN THEM.*/
+
+Select all records where the first letter of the City is an "a" or a "c" or an "s".
+SELECT * FROM Customers
+WHERE City LIKE '
+[acs]
+%';
+
+Select all records where the first letter of the City starts with anything from an "a" to an "f".
+
+SELECT * FROM Customers
+WHERE City LIKE '
+[a-f]
+%';
+
+
+Select all records where the first letter of the City is NOT an "a" or a "c" or an "f".
+
+SELECT * FROM Customers
+WHERE City LIKE '
+[^acf]
+%';
+
+
+2. BETWEEN AND IN
+
+    SELECT ENAME FROM EMPLOYEE WHERE DOB BETWEEN '12/07/92 TO 30/02/18'
+
+  Use the IN operator to select all the records where Country is either "Norway" or "France".
+
+SELECT * FROM Customers where country in('norway' , 'France' );
+
+OTHERS :
+
+The following SQL statement selects all customers from the "Customers" table, sorted by the "Country" and the "CustomerName" column.
+This means that it orders by Country, but if some rows have the same Country, it orders them by CustomerName:
+
+SELECT * FROM Customers
+ORDER BY Country, CustomerName;
+
+SELECT * TOP 3 FROM CUSTOMERS;
+SELECT *  FROM CUSTOMERS LIMIT 3 ;
+SELECT * FROM CUSTOMERS WHERE ROWNUM <= 3 ;
+
+SELECT ENAME FROM EMPLOYEE WHERE NOT CITY = 'Berlin'
+
+
+CREATE Table Employee (
+eid INT ,
+name VARCHAR2(40),
+age INT,
+salary INT ) ;
+
+
+ORDER BY :
+
+SELECT * FROM Employee ORDER BY Salary;
+SELECT * FROM Employee ORDER BY Salary DESC;
+
+ORDER BY IS USED TO SORT THE DATA FETCHED FROM SELECT STATEMENT AND SORT IT IN ASCENDING OR DESCENDING ORDER BY
+DEFAULT IT IS ASCENDING ORDER
+
+GROUP BY :
+
+SELECT * FROM Employee GROUP BY salary
+SELECT name,age FROM Employee GROUP BY salary
+SELECT name, SUM(Salary) FROM Employee GROUP BY salary
+SELECT name,salary FROM Employee GROUP BY age > 25 ;
+SELECT name,age FROM Employee GROUP BY age ORDER BY salary desc
+
+/*GROUP BY IS TO GROUP THE RESULTS FETCHED BY SELECT STATEMENT BASED ON ONE OR MORE COLUMN
+
+but in oracle SQL select column must be same as group by COLUMN.
+*/
+
+DISTINCT :
+SELECT DISTINCT SALARY FROM EMPLOYEE1
+
+AND OR :
+SELECT * FROM Employee1 WHERE salary > 8000 AND age > 30
+SELECT * FROM Employee1 WHERE salary > 8000 OR age > 30
+
+CREATE Table Sale (
+oid int ,
+order_name VARCHAR2(30),
+previous_balance INT,
+customer_name VARCHAR2(50)) ;
+
+CREATE Table Student3(
+student_id INT NOT NULL,
+name VARCHAR2(40),
+age INT  );
+
+
+TCL COMMANDS
+1. COMMIT,SAVEPOINT AND ROLLBACK
+
+INSERT INTO class VALUES(5, 'Rahul');
+
+COMMIT;
+
+UPDATE class SET name = 'Abhijit' WHERE id = '5';
+
+SAVEPOINT A;
+
+INSERT INTO class VALUES(6, 'Chris');
+
+SAVEPOINT B;
+
+INSERT INTO class VALUES(7, 'Bravo');
+
+SAVEPOINT C;
+
+SELECT * FROM class;
+
+
+ROLLBACK TO B;
+
+SELECT * FROM class;
+
+
+ROLLBACK TO A;
+
+SELECT * FROM class;
+
+
+SQL CONSTRAINTS
+
+/* NOT NULL, UNIQUE , PRIMARY KEY , CHECK AND DEFAULT CONSTRAINT  */
+
+CREATE Table Student3 (
+Student_id INT NOT NULL ,
+name VARCHAR2(40) ,
+age INT ) ;
+
+CREATE Table Student3 (
+Student_id INT NOT NULL UNIQUE ,
+name VARCHAR2(40) ,
+age INT ) ;
+
+ALTER Table Student3 ADD UNIQUE(Student_id) ;
+
+CREATE Table Student3 (
+Student_id INT PRIMARY KEY ,
+name VARCHAR2(40) ,
+age INT ) ;
+
+ALTER Table Student3 ADD PRIMARY KEY (Student_id) ;
+
+CREATE Table Student3 (
+Student_id INT NOT NULL CHECK (Student_id > 0) ,
+name VARCHAR2(40) NOT NULL  ,
+age INT ) ;
+
+ALTER Table Student3 ADD CHECK(Student_id>0) ;
+
+CREATE Table Student3 (
+Student_id INT NOT NULL CHECK (Student_id > 0) ,
+name VARCHAR2(40) NOT NULL  ,
+age INT ,
+location VARCHAR2(20) DEFAULT 'India' ) ;
+
+
+ALTER Table Student3 ADD (
+location VARCHAR2(40) DEFAULT 'India' ) ;
+
+
+FOREIGN KEY CONCEPT
+
+
+CREATE Table Customer_detail (
+cid INT PRIMARY KEY ,
+customer_name VARCHAR2(40) NOT NULL ,
+address VARCHAR2(40) ) ;
+
+
+CREATE Table Order_detail (
+oid INT PRIMARY KEY ,
+order_name VARCHAR2(40) ,
+cid INT ,
+FOREIGN KEY(cid) REFERENCES Customer_detail(cid)
+);
+
+CREATE Table Customer_detail (
+CREATE Table Customer_detail (
+cid INT PRIMARY KEY ,
+customer_name VARCHAR2(40) NOT NULL ,
+address VARCHAR2(40) ) ;
+
+
+CREATE Table Order_detail (
+oid INT PRIMARY KEY ,
+order_name VARCHAR2(40) ,
+cid INT ,
+FOREIGN KEY(cid) REFERENCES Customer_detail(cid)
+);
+
+
+cid INT PRIMARY KEY ,
+customer_name VARCHAR2(40) NOT NULL ,
+address VARCHAR2(40) ) ;
+
+or
+
+ALTER Table Order_detail ADD FOREIGN KEY(cid) REFERENCES Customer_detail(cid) ;
+
+
+ALL TYPES OF JOINS :
+
+SELECT * FROM Class CROSS JOIN Class_info
+SELECT NAME FROM Class CROSS JOIN Class_info /* Cross Join */
+
+SELECT *  FROM Class INNER JOIN Class_info ON Class.id = Class_info.id /* EQUI JOIN OR INNER JOIN */
+SELECT ADDRESS FROM Class INNER JOIN Class_info ON Class.id = Class_info.id
+
+SELECT * FROM Class_info NATURAL JOIN Class /*Natural Join*/
+
+
+Select FROM Study AS T1, Study AS T2 WHERE T1.Sid = T2.Sid AND T1.Cid <> T2.Cid ; /*IN MYSQL */ /*Self Join*/
+SELECT T1.Sid FROM Study T1 , Study T2 WHERE T1.Sid = T2.Sid AND T1.Cid <> T2.Cid /*IN ORACLE*/
+SELECT T2.* FROM Study T1 , Study T2 WHERE T1.Sid = T2.Sid AND T1.Cid <> T2.Cid /* Same result */
+
+SELECT * FROM Class LEFT OUTER JOIN Class_info ON Class.id = Class_info.id
+SELECT Name,Address FROM Class FULL OUTER JOIN Class_info ON Class.id = Class_info.id /*LEFT JOIN*/
+
+SELECT * FROM Class RIGHT OUTER JOIN Class_info ON Class.id = Class_info.id
+SELECT Name,Address FROM Class FULL OUTER JOIN Class_info ON Class.id = Class_info.id/*RIGHT JOIN*/
+
+
+SELECT * FROM Class FULL OUTER JOIN Class_info ON Class.id = Class_info.id
+SELECT Name,Address FROM Class FULL OUTER JOIN Class_info ON Class.id = Class_info.id/*full join*/
+
+
+ALLIAS :
+
+ALLIAS MEANS HIDEING OR CONCEALING ONE'S IDENTITY WITH FALSE NAME.
+IN SQL ALLIAS IS USED AS A CERTAIN TIME FRAME TO TABLE AND COLUMN TO AVOID COMPLEX QUERY
+Alias is mainly used for giving a short alias name for a column or a table with complex names.
+
+SELECT * FROM Class AS cl
+SELECT name FROM Class AS na
+Select id,name AS Ex FROM Class,id AS Ext FROM Class_info ON (Ex.id =  Ext.id )
+
+SEQUENCE :
+
+SEQUENCE IS SUPPORTED BY DIFFERENT DATABASES IT PRODUCES UNIQUE VALUES ON DEMAND IT IS SAME AS AUTO_INCREMENT IN MYSQL
+
+APART IT HAS FEW EXTRA FEATURES :
+
+INiTITIAL_VALUE  : SPECIFIES STARTING VALUE OF THE SEQUENCE
+INCREMENT-VALUE: VALUE BY WHICH THE SEQUENCE GET UPDATED
+MAX_VALUE :  MAXIMUM VALUE OF THE SEQUENCE
+CYCLE: IF MAX VALUE IS EXCEEDED THEN IT WILL AGAIN START FROMBEGINING
+NO CYCLE GIVES AN ERROR THAT MAX VALUE OF THE SEQUENCE HAS EXCEDEED
+
+QUERY SYNTAX: SELECT SEQUENCE sequence_name START WITH initial_value Increment by INCREMENT_VALUE MAXVALUE max_value CYCLE || NO CYCLE
+
+CREATE SEQUENCE sq_1
+START with 1
+INCREMENT BY 1
+MAXVALUE 999
+CYCLE ;
+
+CREATE SEQUENCE sq_2 
+START with 1
+INCREMENT BY 2
+MAXVALUE 999
+CYCLE  ;
+
+INSERT INTO FIRST VALUES(sq_1.nextval,'Anush'); // start with 1
+INSERT INTO FIRST VALUES(sq_1.nextval,'Rishi'); // then 2
+
+INSERT INTO FIRST VALUES(sq_2.nextval,'Taylor');//start with 1
+INSERT INTO FIRST VALUES(sq_1.nextval,'Mariah');// then 3
+
+
+SET OPERATIONS :
+
+SELECT * FROM FIRST UNION SELECT * FROM SECOND /*SAME COLUMN NUMBER UNION NO REDUNDANT ROW*/
+SELECT name FROM FIRST UNION SELECT name FROM Second
+
+SELECT * FROM First UNION ALL SELECT * FROM SECOND /*SAME COLUMN NUMBER UNION BUT WITH REDUNDANT ROW*/
+SELECT id  FROM First UNION ALL SELECT id FROM Second
+
+SELECT * FROM First INTERSECT SELECT * FROM Second/*intersect common in both table,column number must be same*/
+SELECT id FROM First INTERSECT SELECT id FROM Second
+
+SELECT * FROM First MINUS SELECT * FROM Second /* minus or set difference present in a not in b*/
+SELECT * FROM Second MINUS SELECT * FROM First
+SELECT name FROM First MINUS SELECT name FROM Second
+
+
+Division :
+
+Division Operator in SQL
+
+The division operator is used when we have to evaluate queries which contain the keyword ALL.
+
+Some instances where division operator is used are:
+
+    Which person has account in all the banks of a particular city?
+    Which students have taken all the courses required to graduate?
+
+Another way how you can identify the usage of division operator is by using the logical implication of if...then. In context of the above two examples, we can see that the queries mean that,
+
+    If there is a bank in that particular city, that person must have an account in that bank.
+    If there is a course in the list of courses required to be graduated, that person must have taken that course.
+
+Table 1: Course_Taken â†’ It consists of the names of Students against the courses that they have taken.
+
+Create Table Course_taken (
+student_name VARCHAR2(60) ,
+course VARCHAR2(60) ) ;
+
+insert all
+into course_taken(student_name,course)  values('Robert','Databases')
+into course_taken(student_name,course)  values('Robert','Programming Languages')
+into course_taken(student_name,course)  values('David','Databases')
+into course_taken(student_name,course)  values('David','Operating Systems')
+into course_taken(student_name,course)  values('Hannah','Programming Languages')
+into course_taken(student_name,course)  values('Hannah','Machine Learning')
+into course_taken(student_name,course)  values('Tom','Operating Systems')
+Select * from dual ;
+
+
+Table 2: Course_Required â†’ It consists of the courses that one is required to take in order to graduate.
+
+Create Table Course_Required (
+course VARCHAR2(60) ) ;
+
+
+insert all
+into course_required(course)values('Databases')
+into course_required(course)  values('Programming Languages')
+select * from dual
